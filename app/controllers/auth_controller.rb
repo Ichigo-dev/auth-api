@@ -1,4 +1,6 @@
 class AuthController < ApplicationController
+  skip_before_action :require_login, only: [:create]
+
   def create
     user = User.find_by(email: params[:email])
     token = ''
@@ -7,6 +9,6 @@ class AuthController < ApplicationController
       token = Session.create(user)
       status = :created
     end
-    render json: { token: token }, status: status
+    render json: { token: token , status: status }
   end
 end
