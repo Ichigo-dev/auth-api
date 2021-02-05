@@ -9,4 +9,8 @@ module Session
     REDIS.expire(token, Settings.session.timeout)
     return token
   end
+
+  def self.get(token)
+    REDIS.hgetall(token)
+  end
 end
